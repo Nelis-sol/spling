@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react'
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui'
+import React, { FC, ReactNode, useMemo } from 'react'
+import { Outlet } from 'react-router-dom'
+import './App.css'
+import ResponsiveAppBar from './components/ResponsiveAppBar'
+import {
+  GlowWalletAdapter,
+  PhantomWalletAdapter,
+  SlopeWalletAdapter,
+  TorusWalletAdapter,
+} from '@solana/wallet-adapter-wallets'
+
+// Default styles that can be overridden by your app
+require('@solana/wallet-adapter-react-ui/styles.css')
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Context>
+      <div>
+        <ResponsiveAppBar />
+        <Outlet />
+      </div>
+    </Context>
+  )
 }
 
-export default App;
+const Context: FC<{ children: ReactNode }> = ({ children }) => {
+  const network = 'https://ssc-dao.genesysgo.net/'
+  const wallets = useMemo(
+    () => [
+      new PhantomWalletAdapter(),
+      new GlowWalletAdapter(),
+      new SlopeWalletAdapter(),
+      new TorusWalletAdapter(),
+    ],
+    [network],
+  )
+
+  return (
+    <ConnectionProvider endpoint={network} config={{ commitment: 'max' }}>
+      <WalletProvider wallets={wallets} autoConnect>
+        <WalletModalProvider>{children}</WalletModalProvider>
+      </WalletProvider>
+    </ConnectionProvider>
+  )
+}
+
+export default App
