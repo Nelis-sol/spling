@@ -1,8 +1,7 @@
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react'
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui'
 import React, { FC, ReactNode, useMemo } from 'react'
-import { Outlet } from 'react-router-dom'
-import './App.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import ResponsiveAppBar from './components/ResponsiveAppBar'
 import {
   GlowWalletAdapter,
@@ -10,6 +9,9 @@ import {
   SlopeWalletAdapter,
   TorusWalletAdapter,
 } from '@solana/wallet-adapter-wallets'
+import Welcome from './routes/welcome'
+import Feed from './routes/feed'
+import NotFound from './routes/not-found'
 
 // Default styles that can be overridden by your app
 require('@solana/wallet-adapter-react-ui/styles.css')
@@ -17,10 +19,14 @@ require('@solana/wallet-adapter-react-ui/styles.css')
 function App() {
   return (
     <Context>
-      <div>
+      <BrowserRouter>
         <ResponsiveAppBar />
-        <Outlet />
-      </div>
+        <Routes>
+          <Route path='/' element={<Welcome />} />
+          <Route path='/feed' element={<Feed />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
     </Context>
   )
 }
