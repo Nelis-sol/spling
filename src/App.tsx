@@ -12,6 +12,7 @@ import {
 import Welcome from './routes/welcome'
 import Feed from './routes/feed'
 import NotFound from './routes/not-found'
+import SignUp from './routes/signup'
 
 // Default styles that can be overridden by your app
 require('@solana/wallet-adapter-react-ui/styles.css')
@@ -23,6 +24,7 @@ function App() {
         <ResponsiveAppBar />
         <Routes>
           <Route path='/' element={<Welcome />} />
+          <Route path='/signup' element={<SignUp />} />
           <Route path='/feed' element={<Feed />} />
           <Route path='*' element={<NotFound />} />
         </Routes>

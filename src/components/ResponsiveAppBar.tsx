@@ -9,7 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
-import AdbIcon from '@mui/icons-material/Adb'
+import BubbleChart from '@mui/icons-material/BubbleChart'
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useWallet } from '@solana/wallet-adapter-react'
@@ -40,7 +40,7 @@ const ResponsiveAppBar = () => {
     <AppBar position='static'>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <BubbleChart sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant='h6'
             noWrap
@@ -103,7 +103,7 @@ const ResponsiveAppBar = () => {
               </Menu>
             </Box>
           ) : null}
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <BubbleChart sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant='h5'
             noWrap
